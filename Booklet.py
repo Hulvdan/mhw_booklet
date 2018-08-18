@@ -5,7 +5,7 @@ from SConfig import *
 
 
 class Booklet:
-    card_size = (345, 212)
+    card_size = (1035, 636)
     filling_color = Colors.white
 
     def __init__(self, data_filename, grid_x, grid_y, filling_mode, draw_numbers=False):

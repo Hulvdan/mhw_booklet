@@ -26,7 +26,7 @@ class WeaknessStack:
             alphaPaster(image, Images.image_elem_dragon if not self._is_faded else Images.image_elem_dragon_faded)
         alphaPaster(image, self._getPowerValueImage(), (0, SConfig.weakness_column_width + SConfig.weakness_row_padding))
         return image
-    
+
     def _getPowerValueImage(self) -> Image.Image:
         image = Image.new("RGBA", (SConfig.weakness_column_width, SConfig.weakness_column_width * 3 + SConfig.weakness_row_padding * 2))
         if self._power_secondary == -1:
@@ -44,59 +44,59 @@ class WeaknessStack:
             last_y = 0
 
             if self._power == 0:
-                alphaPaster(image, little_cross_faded if not self._is_faded else little_cross, (little_image_left_pos, 0))
+                alphaPaster(image, little_cross_faded if self._is_faded else little_cross, (little_image_left_pos, 0))
 
             for i in range(self._power):
                 little_star_y = int(i * SConfig.small_scale * SConfig.weakness_row_padding + i * SConfig.small_scale * SConfig.weakness_column_width)
-                alphaPaster(image, little_star_faded if not self._is_faded else little_star, (little_image_left_pos, little_star_y))
+                alphaPaster(image, little_star_faded if self._is_faded else little_star, (little_image_left_pos, little_star_y))
 
             for i in range(self._power_secondary + 1 if self._power_secondary == 0 else self._power_secondary):
                 if self._power_secondary == 0:
                     if SConfig.drawCrossAtBottom:
-                        alphaPaster(image, little_cross_faded if not self._is_faded else little_cross, (little_image_left_pos, image.size[1] - new_size[1]))
+                        alphaPaster(image, little_cross_faded if self._is_faded else little_cross, (little_image_left_pos, image.size[1] - new_size[1]))
                     else:
                         last_y = int((self._power if self._power > 0 else 1) * new_size[1] + (self._power if self._power > 0 else 1) * SConfig.small_scale * SConfig.weakness_row_padding)
-                        alphaPaster(image, little_cross_faded if not self._is_faded else little_cross, (little_image_left_pos, last_y))
+                        alphaPaster(image, little_cross_faded if self._is_faded else little_cross, (little_image_left_pos, last_y))
 
             for k in range(self._power_secondary):
                 last_y = int((self._power if self._power > 0 else 1) * new_size[1] + (self._power if self._power > 0 else 1) * SConfig.small_scale * SConfig.weakness_row_padding)
                 little_star_y = int(k * SConfig.small_scale * SConfig.weakness_row_padding + k * SConfig.small_scale * SConfig.weakness_column_width + last_y)
-                alphaPaster(image, little_star_faded if not self._is_faded else little_star, (little_image_left_pos, little_star_y))
+                alphaPaster(image, little_star_faded if self._is_faded else little_star, (little_image_left_pos, little_star_y))
 
             alphaPaster(image, self._drawBrackets(1 if self._power_secondary == 0 else self._power_secondary, self._is_faded, SConfig.weakness_column_width, SConfig.weakness_row_padding * SConfig.small_scale), (0, last_y))
 
         return image
 
     @staticmethod
-    def _drawBrackets(images_count, is_not_faded, icon_size, padding, margin=True) -> Image.Image:
+    def _drawBrackets(images_count, is_faded, icon_size, padding, margin=True) -> Image.Image:
         size = (int(icon_size), int(icon_size * images_count + padding * (images_count - 1)))
         image = Image.new("RGBA", size, (0,0,0,0))
         drawer = ImageDraw.ImageDraw(image)
-        line_width = 2
+        line_width = 6
 
         offset = 3 if margin else 0
         if margin:
-            p1 = (offset+line_width*2-1, 1)
-            p2 = (offset+0, 1)
-            p3 = (offset+0,              icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-1)
-            p4 = (offset+line_width*2-1, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-1)
+            p1 = (offset+line_width*2-3, 3)
+            p2 = (offset, 3)
+            p3 = (offset,              icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-3)
+            p4 = (offset+line_width*2-3, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-3)
 
-            p5 = (-offset+size[0] - 2*line_width, 0)
-            p6 = (-offset+size[0] - line_width, 0)
+            p5 = (-offset+size[0] - 2*line_width, 1)
+            p6 = (-offset+size[0] - line_width, 1)
             p7 = (-offset+size[0] - line_width,   icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale)
             p8 = (-offset+size[0] - 2*line_width, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale)
         else:
-            p1 = (offset+line_width*2-1, 1)
+            p1 = (offset+line_width*2-3, 1)
             p2 = (offset+0, 1)
-            p3 = (offset+0,              icon_size * images_count + padding * (images_count - 1) - 2)
-            p4 = (offset+line_width*2-1, icon_size * images_count + padding * (images_count - 1) - 2)
+            p3 = (offset+0,              icon_size * images_count + padding * (images_count - 1) - 6)
+            p4 = (offset+line_width*2-3, icon_size * images_count + padding * (images_count - 1) - 6)
 
             p5 = (-offset+size[0] - 2*line_width, 0)
             p6 = (-offset+size[0] - line_width, 0)
-            p7 = (-offset+size[0] - line_width,   icon_size * images_count + padding * (images_count - 1) - 1)
-            p8 = (-offset+size[0] - 2*line_width, icon_size * images_count + padding * (images_count - 1) - 1)
+            p7 = (-offset+size[0] - line_width,   icon_size * images_count + padding * (images_count - 1) - 2)
+            p8 = (-offset+size[0] - 2*line_width, icon_size * images_count + padding * (images_count - 1) - 2)
 
-        clr = SConfig.braces_color_faded if not is_not_faded else SConfig.braces_color
+        clr = SConfig.braces_color_faded if is_faded else SConfig.braces_color
         drawer.line((p1, p2), fill=clr, width=line_width)
         drawer.line((p2, p3), fill=clr, width=line_width)
         drawer.line((p3, p4), fill=clr, width=line_width)

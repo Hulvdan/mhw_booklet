@@ -68,14 +68,14 @@ class AilmentStack:
 
 
         drawer = ImageDraw.Draw(image)
-        font = ImageFont.truetype("11988.otf", 28)
+        font = ImageFont.truetype("11988.otf", 84)
         last_y = SConfig.weakness_row_padding + SConfig.weakness_column_width
         if self._draw_numbers:
             for i in range(5):
                 if not SConfig.zero_ailment_space:
                     continue
                 if self._powers[i] != 0:
-                    drawer.text((small_size[0] + (1 if self._powers[i] == 1 else 0), last_y-8), str(self._powers[i]), font=font, fill=colors_by_powers[i])
+                    drawer.text((small_size[0] + (3 if self._powers[i] == 1 else 0), last_y-24), str(self._powers[i]), font=font, fill=colors_by_powers[i])
                 last_y += (SConfig.weakness_column_width + SConfig.weakness_row_padding) * SConfig.small_scale
 
 

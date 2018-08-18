@@ -28,12 +28,17 @@ class Card:
         self._blast_ail     = ail[3]
         self._stun_ail      = ail[4]
 
+        __f = self._fire_res[0] if isinstance(self._fire_res, list) else self._fire_res
+        __w = self._water_res[0] if isinstance(self._water_res, list) else self._water_res
+        __t = self._thunder_res[0] if isinstance(self._thunder_res, list) else self._thunder_res
+        __i = self._ice_res[0] if isinstance(self._ice_res, list) else self._ice_res
+        __d = self._dragon_res[0] if isinstance(self._dragon_res, list) else self._dragon_res
         max_res = max(i[0] if isinstance(i, list) else i for i in weak)
-        self._fire_stack    = WeaknessStack(0, self._fire_res != max_res,    weak[0][0] if isinstance(weak[0], list) else weak[0], weak[0][1] if isinstance(weak[0], list) else -1)
-        self._water_stack   = WeaknessStack(1, self._water_res != max_res,   weak[1][0] if isinstance(weak[1], list) else weak[1], weak[1][1] if isinstance(weak[1], list) else -1)
-        self._thunder_stack = WeaknessStack(2, self._thunder_res != max_res, weak[2][0] if isinstance(weak[2], list) else weak[2], weak[2][1] if isinstance(weak[2], list) else -1)
-        self._ice_stack     = WeaknessStack(3, self._ice_res != max_res,     weak[3][0] if isinstance(weak[3], list) else weak[3], weak[3][1] if isinstance(weak[3], list) else -1)
-        self._dragon_stack  = WeaknessStack(4, self._dragon_res != max_res,  weak[4][0] if isinstance(weak[4], list) else weak[4], weak[4][1] if isinstance(weak[4], list) else -1)
+        self._fire_stack    = WeaknessStack(0, __f != max_res, weak[0][0] if isinstance(weak[0], list) else weak[0], weak[0][1] if isinstance(weak[0], list) else -1)
+        self._water_stack   = WeaknessStack(1, __w != max_res, weak[1][0] if isinstance(weak[1], list) else weak[1], weak[1][1] if isinstance(weak[1], list) else -1)
+        self._thunder_stack = WeaknessStack(2, __t != max_res, weak[2][0] if isinstance(weak[2], list) else weak[2], weak[2][1] if isinstance(weak[2], list) else -1)
+        self._ice_stack     = WeaknessStack(3, __i != max_res, weak[3][0] if isinstance(weak[3], list) else weak[3], weak[3][1] if isinstance(weak[3], list) else -1)
+        self._dragon_stack  = WeaknessStack(4, __d != max_res, weak[4][0] if isinstance(weak[4], list) else weak[4], weak[4][1] if isinstance(weak[4], list) else -1)
         self._ailment_stack = AilmentStack(ail, draw_numbers)
         self._big_stack = (self._fire_stack, self._water_stack, self._thunder_stack, self._ice_stack, self._dragon_stack, self._ailment_stack)
 
@@ -48,7 +53,7 @@ class Card:
         image = Image.new("RGBA", (self._width, self._height))
         drawer = ImageDraw.Draw(image)
 
-        font = ImageFont.truetype("Gabriola.ttf", 60)
+        font = ImageFont.truetype("Gabriola.ttf", 180)
         height = self._icon_image.size[1]
         alphaPaster(image, self._icon_image, (0, self._height - SConfig.icon_bottom_pos - height))
 
@@ -73,6 +78,9 @@ class Card:
         text_size = drawer.textsize(self._name, font=font)
         drawer.text(((self._width - text_size[0]) / 2, 0), self._name, font=font, fill=self._color)
 
+        alphaPaster(image, self.getAttackImage(),
+                    (0, self._height - SConfig.icon_bottom_pos + SConfig.attack_icons_spacing_from_icon))
+
         return image
 
     def getAttackImage(self) -> Image.Image:
@@ -90,7 +98,7 @@ class Card:
             if attack_type == 'waterblight':
                 alphaPaster(image, Images.image_waterblight.resize(_s), (int(posx), int(posy)))
             elif attack_type == 'mud_brackets':
-                img_brackets = self.drawBrackets(1, True, width, spacing, False)
+                img_brackets = self._drawBrackets(1, True, width, spacing, False)
                 res_mud = Images.image_mud.resize(_s)
                 alphaPaster(res_mud, img_brackets, (0,0))
                 alphaPaster(image, res_mud, (int(posx), int(posy)))
@@ -117,7 +125,7 @@ class Card:
             elif attack_type == 'blast':
                 alphaPaster(image, Images.image_ail_blast.resize(_s), (int(posx), int(posy)))
             elif attack_type == 'diamond_brackets':
-                img_brackets = self.drawBrackets(1, True, width, spacing, False)
+                img_brackets = self._drawBrackets(1, True, width, spacing, False)
                 res_diamond = Images.image_diamond.resize(_s)
                 alphaPaster(res_diamond, img_brackets, (0,0))
                 alphaPaster(image, res_diamond, (int(posx), int(posy)))
@@ -131,126 +139,33 @@ class Card:
         return image
 
     @staticmethod
-    def getAilmentsImage(poison, sleep, paralysis, blast, stun) -> Image.Image:
-        image = Image.new("RGBA", (SConfig.weakness_column_width, SConfig.weakness_column_width * 3 + SConfig.weakness_row_padding * 2))
-        new_size = (int(SConfig.weakness_column_width * SConfig.small_scale), int(SConfig.weakness_column_width * SConfig.small_scale))
-        # little_star = image_star.resize(new_size)
-        little_image_left_pos = int((SConfig.weakness_column_width - new_size[0]) / 2)
-        little_poison = Images.image_ail_poison.resize(new_size)
-        little_sleep = Images.image_ail_sleep.resize(new_size)
-        little_paralysis = Images.image_ail_paralysis.resize(new_size)
-        little_blast = Images.image_ail_blast.resize(new_size)
-        little_stun =Images.image_ail_stun.resize(new_size)
-
-        little_faded_poison = Images.image_ail_poison_faded.resize(new_size)
-        little_faded_sleep = Images.image_ail_sleep_faded.resize(new_size)
-        little_faded_paralysis = Images.image_ail_paralysis_faded.resize(new_size)
-        little_faded_blast = Images.image_ail_blast_faded.resize(new_size)
-        little_faded_stun = Images.image_ail_stun_faded.resize(new_size)
-
-        # _low_opacity = 50
-        y = 0
-        dy = new_size[1] + SConfig.small_scale * SConfig.weakness_row_padding
-        if poison == 1:
-            alphaPaster(image, little_faded_poison, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_poison, (little_image_left_pos, int(y)))
-            y += dy
-        elif poison == 2:
-            alphaPaster(image, Images.image_back_small_faded, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_faded_poison, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_poison, (little_image_left_pos, int(y)))
-            y += dy
-        elif poison == 3:
-            alphaPaster(image, Images.image_back_small, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_poison, (little_image_left_pos, int(y)))
-            y += dy
-
-        if sleep == 1:
-            alphaPaster(image, little_faded_sleep, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_sleep, (little_image_left_pos, int(y)))
-            y += dy
-        elif sleep == 2:
-            alphaPaster(image, Images.image_back_small_faded, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_faded_sleep, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_sleep, (little_image_left_pos, int(y)))
-            y += dy
-        elif sleep == 3:
-            alphaPaster(image, Images.image_back_small, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_sleep, (little_image_left_pos, int(y)))
-            y += dy
-
-        if paralysis == 1:
-            alphaPaster(image, little_faded_paralysis, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_paralysis, (little_image_left_pos, int(y)))
-            y += dy
-        elif paralysis == 2:
-            alphaPaster(image, Images.image_back_small_faded, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_faded_paralysis, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_paralysis, (little_image_left_pos, int(y)))
-            y += dy
-        elif paralysis == 3:
-            alphaPaster(image, Images.image_back_small, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_paralysis, (little_image_left_pos, int(y)))
-            y += dy
-
-        if blast == 1:
-            alphaPaster(image, little_faded_blast, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_blast, (little_image_left_pos, int(y)))
-            y += dy
-        elif blast == 2:
-            alphaPaster(image, Images.image_back_small_faded, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_faded_blast, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_blast, (little_image_left_pos, int(y)))
-            y += dy
-        elif blast == 3:
-            alphaPaster(image, Images.image_back_small, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_blast, (little_image_left_pos, int(y)))
-            y += dy
-
-        if stun == 1:
-            alphaPaster(image, little_faded_stun, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_stun, (little_image_left_pos, int(y)))
-            y += dy
-        elif stun == 2:
-            alphaPaster(image, Images.image_back_small_faded, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_faded_stun, (little_image_left_pos, int(y)))
-            # alphaPaster(image, little_stun, (little_image_left_pos, int(y)))
-            y += dy
-        elif stun == 3:
-            alphaPaster(image, Images.image_back_small, (little_image_left_pos, int(y)))
-            alphaPaster(image, little_stun, (little_image_left_pos, int(y)))
-            y += dy
-
-        return image
-
-    @staticmethod
-    def drawBrackets(images_count, is_not_faded, icon_size, padding, margin=True) -> Image.Image:
+    def _drawBrackets(images_count, is_not_faded, icon_size, padding, margin=True) -> Image.Image:
         size = (int(icon_size), int(icon_size * images_count + padding * (images_count - 1)))
         image = Image.new("RGBA", size, (0,0,0,0))
         drawer = ImageDraw.ImageDraw(image)
-        line_width = 2
+        line_width = 6
 
         offset = 3 if margin else 0
         if margin:
-            p1 = (offset+line_width*2-1, 1)
-            p2 = (offset+0, 1)
-            p3 = (offset+0,              icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-1)
-            p4 = (offset+line_width*2-1, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-1)
+            p1 = (offset+line_width*2-3, 3)
+            p2 = (offset, 3)
+            p3 = (offset,              icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-3)
+            p4 = (offset+line_width*2-3, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale-3)
 
-            p5 = (-offset+size[0] - 2*line_width, 0)
-            p6 = (-offset+size[0] - line_width, 0)
+            p5 = (-offset+size[0] - 2*line_width, 1)
+            p6 = (-offset+size[0] - line_width, 1)
             p7 = (-offset+size[0] - line_width,   icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale)
             p8 = (-offset+size[0] - 2*line_width, icon_size * images_count * SConfig.small_scale + padding * (images_count - 1) * SConfig.small_scale)
         else:
-            p1 = (offset+line_width*2-1, 1)
-            p2 = (offset+0, 1)
-            p3 = (offset+0,              icon_size * images_count + padding * (images_count - 1) - 2)
-            p4 = (offset+line_width*2-1, icon_size * images_count + padding * (images_count - 1) - 2)
+            p1 = (offset+line_width*2-0, 2)
+            p2 = (offset+1, 2)
+            p3 = (offset+1,              icon_size * images_count + padding * (images_count - 1) - 6)
+            p4 = (offset+line_width*2-0, icon_size * images_count + padding * (images_count - 1) - 6)
 
-            p5 = (-offset+size[0] - 2*line_width, 0)
-            p6 = (-offset+size[0] - line_width, 0)
-            p7 = (-offset+size[0] - line_width,   icon_size * images_count + padding * (images_count - 1) - 1)
-            p8 = (-offset+size[0] - 2*line_width, icon_size * images_count + padding * (images_count - 1) - 1)
+            p5 = (-offset+size[0] - 2*line_width-0, 1)
+            p6 = (-offset+size[0] - line_width+2, 1)
+            p7 = (-offset+size[0] - line_width+2,   icon_size * images_count + padding * (images_count - 1) - 2)
+            p8 = (-offset+size[0] - 2*line_width-0, icon_size * images_count + padding * (images_count - 1) - 2)
 
         clr = SConfig.braces_color_faded if not is_not_faded else SConfig.braces_color
         drawer.line((p1, p2), fill=clr, width=line_width)

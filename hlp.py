@@ -1,7 +1,22 @@
 
 from PIL import Image
 from SConfig import *
+import time
 
+
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        if 'log_time' in kw:
+            name = kw.get('log_name', method.__name__.upper())
+            kw['log_time'][name] = int((te - ts) * 1000)
+        else:
+            print('%r  %2.2f ms' % \
+                  (method.__name__, (te - ts) * 1000))
+        return result
+    return timed
 
 class Colors:
     transparent = (0,0,0,0)
@@ -57,6 +72,7 @@ class Images:
     def load():
         weakness_column_width = SConfig.weakness_column_width
         Images.s = list([weakness_column_width] * 2)
+        s = Images.s
         Images.image_elem_fire           = Image.open(r"images\element\fire.png")
         Images.image_elem_water          = Image.open(r"images\element\water.png")
         Images.image_elem_thunder        = Image.open(r"images\element\thunder.png")
@@ -90,8 +106,8 @@ class Images:
 
         Images.image_ail_bleed           = Image.open(r"images\element\bleed.png")
         Images.image_ail_effluvial       = Image.open(r"images\element\effluvial.png")
-        Images.image_ail_ailment         = Image.open(r"images\element\ailment.png")
-        Images.image_ail_ailment_faded   = Image.open(r"images\element\ailment_faded.png")
+        Images.image_ail_ailment         = Image.open(r"images\element\ailment.png").resize(s)
+        Images.image_ail_ailment_faded   = Image.open(r"images\element\ailment_faded.png").resize(s)
 
         Images.image_star                = Image.open(r"images\element\star.png")
         Images.image_star_faded          = Image.open(r"images\element\star_faded.png")
@@ -100,7 +116,6 @@ class Images:
         Images.image_back_small          = Image.open(r"images\element\back.png")
         Images.image_back_small_faded    = Image.open(r"images\element\back_faded.png")
 
-        s = Images.s
         Images.image_elem_fire          .thumbnail(s, Image.ANTIALIAS)
         Images.image_elem_water         .thumbnail(s, Image.ANTIALIAS)
         Images.image_elem_thunder       .thumbnail(s, Image.ANTIALIAS)
@@ -123,8 +138,6 @@ class Images:
         Images.image_ail_stun_faded     .thumbnail(s, Image.ANTIALIAS)
         Images.image_ail_bleed          .thumbnail(s, Image.ANTIALIAS)
         Images.image_ail_effluvial      .thumbnail(s, Image.ANTIALIAS)
-        Images.image_ail_ailment        .thumbnail(s, Image.ANTIALIAS)
-        Images.image_ail_ailment_faded  .thumbnail(s, Image.ANTIALIAS)
         Images.image_star               .thumbnail(s, Image.ANTIALIAS)
         Images.image_star_faded         .thumbnail(s, Image.ANTIALIAS)
         Images.image_cross              .thumbnail(s, Image.ANTIALIAS)
@@ -137,3 +150,4 @@ def alphaPaster(img_destination:Image.Image, img_source:Image.Image, pos=(0,0)):
     intermediate_image = Image.new("RGBA", img_destination.size, Colors.transparent)
     intermediate_image.paste(img_source, pos)
     img_destination.alpha_composite(intermediate_image)
+
