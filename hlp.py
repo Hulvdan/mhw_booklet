@@ -127,7 +127,7 @@ class Images:
         Images.image_back_small         .thumbnail((s[0] * Images.small_scale, s[1] * Images.small_scale), Image.ANTIALIAS)
         Images.image_back_small_faded   .thumbnail((s[0] * Images.small_scale, s[1] * Images.small_scale), Image.ANTIALIAS)
 
-def alphaPaster(img_destination:Image.Image, img_source:Image.Image, pos):
+def alphaPaster(img_destination:Image.Image, img_source:Image.Image, pos=(0,0)):
     """Pastes img_source into img_destination with alpha_composing"""
     intermediate_image = Image.new("RGBA", img_destination.size, Colors.transparent)
     intermediate_image.paste(img_source, pos)

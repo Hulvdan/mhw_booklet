@@ -20,3 +20,4 @@ class SConfig:
     small_scale = 0.59
     braces_color = (100,100,100,255)
     braces_color_faded = (200,200,200,255)
+    drawCrossAtBottom = False
