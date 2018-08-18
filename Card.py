@@ -8,7 +8,7 @@ from WeaknessStack import *
 
 
 class Card:
-    def __init__(self, _library:dict, _w, _h):
+    def __init__(self, _library:dict, _w, _h, draw_numbers):
         self._library = _library
         self._name        = self._library["name"]
 
@@ -34,7 +34,7 @@ class Card:
         self._thunder_stack = WeaknessStack(2, self._thunder_res != max_res, weak[2][0] if isinstance(weak[2], list) else weak[2], weak[2][1] if isinstance(weak[2], list) else -1)
         self._ice_stack     = WeaknessStack(3, self._ice_res != max_res,     weak[3][0] if isinstance(weak[3], list) else weak[3], weak[3][1] if isinstance(weak[3], list) else -1)
         self._dragon_stack  = WeaknessStack(4, self._dragon_res != max_res,  weak[4][0] if isinstance(weak[4], list) else weak[4], weak[4][1] if isinstance(weak[4], list) else -1)
-        self._ailment_stack = AilmentStack(ail)
+        self._ailment_stack = AilmentStack(ail, draw_numbers)
         self._big_stack = (self._fire_stack, self._water_stack, self._thunder_stack, self._ice_stack, self._dragon_stack, self._ailment_stack)
 
         self._width, self._height, self._size = _w, _h, (_w, _h)
@@ -44,7 +44,6 @@ class Card:
         self._icon_image = ImageEnhance.Color(Image.open("images\\"+self._name+'.png')).enhance(1.5)
         self._icon_image.thumbnail((SConfig.icon_size, SConfig.icon_size*2), Image.ANTIALIAS)
 
-    debug_polygon = False
     def getCardImage(self):
         image = Image.new("RGBA", (self._width, self._height))
         drawer = ImageDraw.Draw(image)
@@ -53,7 +52,7 @@ class Card:
         height = self._icon_image.size[1]
         alphaPaster(image, self._icon_image, (0, self._height - SConfig.icon_bottom_pos - height))
 
-        if Card.debug_polygon:
+        if SConfig.debug_polygon:
             p1 = (0, 0)
             p2 = (self._width - 1, 0)
             p3 = (self._width - 1, self._height - 1)
@@ -64,66 +63,12 @@ class Card:
             drawer.line((p3, p4), fill=debug_color)
             drawer.line((p4, p1), fill=debug_color)
 
-        # - drawing ailments
         x_left = self._width
         for i in range(len(self._big_stack)):
             stack = self._big_stack[-i-1]
             x_left -= stack.getWidth()
             alphaPaster(image, stack.getImage(), (x_left, SConfig.weakness_top))
             x_left -= SConfig.weakness_column_padding
-        # w = SConfig.weakness_column_width
-        # sw = self._width
-        # p = SConfig.weakness_column_padding
-        # t = SConfig.weakness_top
-        #
-        # max_level = max(self._fire_res[0]    if isinstance(self._fire_res, list)    else self._fire_res,
-        #                 self._water_res[0]   if isinstance(self._water_res, list)   else self._water_res,
-        #                 self._thunder_res[0] if isinstance(self._thunder_res, list) else self._thunder_res,
-        #                 self._ice_res[0]     if isinstance(self._ice_res, list)     else self._ice_res,
-        #                 self._dragon_res[0]  if isinstance(self._dragon_res, list)  else self._dragon_res)
-        # faded_res = [self._fire_res    == max_level if not isinstance(self._fire_res, list)    else self._fire_res[0] == max_level,
-        #              self._water_res   == max_level if not isinstance(self._water_res, list)   else self._water_res[0] == max_level,
-        #              self._thunder_res == max_level if not isinstance(self._thunder_res, list) else self._thunder_res[0] == max_level,
-        #              self._ice_res     == max_level if not isinstance(self._ice_res, list)     else self._ice_res[0] == max_level,
-        #              self._dragon_res  == max_level if not isinstance(self._dragon_res, list)  else self._dragon_res[0] == max_level,]
-        #
-        # any_ailment_power_bigger_than_1 = any(x > 1 for x in self._library["ailments"])
-        # alphaPaster(image, Images.image_ail_ailment  if any_ailment_power_bigger_than_1 else Images.image_ail_ailment_faded, (sw - w, t))
-        # alphaPaster(image, Images.image_elem_dragon  if faded_res[-1] else Images.image_elem_dragon_faded,   (sw - 2 * w - 1 * p, t))
-        # alphaPaster(image, Images.image_elem_ice     if faded_res[-2] else Images.image_elem_ice_faded,      (sw - 3 * w - 2 * p, t))
-        # alphaPaster(image, Images.image_elem_thunder if faded_res[-3] else Images.image_elem_thunder_faded,  (sw - 4 * w - 3 * p, t))
-        # alphaPaster(image, Images.image_elem_water   if faded_res[-4] else Images.image_elem_water_faded,    (sw - 5 * w - 4 * p, t))
-        # alphaPaster(image, Images.image_elem_fire    if faded_res[-5] else Images.image_elem_fire_faded,     (sw - 6 * w - 5 * p, t))
-        #
-        # t += SConfig.weakness_row_padding + SConfig.weakness_column_width
-        # if isinstance(self._fire_res, list):
-        #     alphaPaster(image, self.getWeaknessImage(self._fire_res[0], self._fire_res[1], faded_res[0]), (sw - 6 * w - 5 * p, t))
-        # else:
-        #     alphaPaster(image, self.getWeaknessImage(self._fire_res, -1, faded_res[0]), (sw - 6 * w - 5 * p, t))
-        #
-        # if isinstance(self._water_res, list):
-        #     alphaPaster(image, self.getWeaknessImage(self._water_res[0], self._water_res[1], faded_res[1]), (sw - 5 * w - 4 * p, t))
-        # else:
-        #     alphaPaster(image, self.getWeaknessImage(self._water_res, -1, faded_res[1]), (sw - 5 * w - 4 * p, t))
-        #
-        # if isinstance(self._thunder_res, list):
-        #     alphaPaster(image, self.getWeaknessImage(self._thunder_res[0], self._thunder_res[1], faded_res[2]), (sw - 4 * w - 3 * p, t))
-        # else:
-        #     alphaPaster(image, self.getWeaknessImage(self._thunder_res, -1, faded_res[2]), (sw - 4 * w - 3 * p, t))
-        #
-        # if isinstance(self._ice_res, list):
-        #     alphaPaster(image, self.getWeaknessImage(self._ice_res[0], self._ice_res[1], faded_res[3]), (sw - 3 * w - 2 * p, t))
-        # else:
-        #     alphaPaster(image, self.getWeaknessImage(self._ice_res, -1, faded_res[3]), (sw - 3 * w - 2 * p, t))
-        #
-        # if isinstance(self._dragon_res, list):
-        #     alphaPaster(image, self.getWeaknessImage(self._dragon_res[0], self._dragon_res[1], faded_res[4]), (sw - 2 * w - 1 * p, t))
-        # else:
-        #     alphaPaster(image, self.getWeaknessImage(self._dragon_res, -1, faded_res[4]), (sw - 2 * w - 1 * p, t))
-        #
-        # alphaPaster(image, self.getAilmentsImage(self._poison_ail, self._sleep_ail, self._paralysis_ail, self._blast_ail, self._stun_ail), (sw - w, t))
-        # alphaPaster(image, self.getAttackImage(), (0, self._height - SConfig.icon_bottom_pos + SConfig.attack_icons_spacing_from_icon))
-        # - drawing ailments - end
 
         text_size = drawer.textsize(self._name, font=font)
         drawer.text(((self._width - text_size[0]) / 2, 0), self._name, font=font, fill=self._color)
@@ -185,47 +130,6 @@ class Card:
 
         return image
 
-    # drawCrossAtBottom = False
-    # def getWeaknessImage(self, initial, second, is_faded) -> Image.Image:
-    #     image = Image.new("RGBA", (SConfig.weakness_column_width, SConfig.weakness_column_width * 3 + SConfig.weakness_row_padding * 2))
-    #     if second == -1:
-    #         if initial == 0:
-    #             alphaPaster(image, Images.image_cross if is_faded else Images.image_cross_faded, (0,0))
-    #         for i in range(initial):
-    #             alphaPaster(image, Images.image_star_faded if not is_faded else Images.image_star, (0,SConfig.weakness_column_width * i + SConfig.weakness_row_padding * i))
-    #     else:
-    #         new_size = (int(SConfig.weakness_column_width * SConfig.small_scale), int(SConfig.weakness_column_width * SConfig.small_scale))
-    #         little_star = Images.image_star.resize(new_size)
-    #         little_star_faded = Images.image_star_faded.resize(new_size)
-    #         little_cross = Images.image_cross.resize(new_size)
-    #         little_cross_faded = Images.image_cross_faded.resize(new_size)
-    #         little_image_left_pos = int((SConfig.weakness_column_width - new_size[0]) / 2)
-    #         last_y = 0
-    #
-    #         if initial == 0:
-    #             alphaPaster(image, little_cross_faded if not is_faded else little_cross, (little_image_left_pos, 0))
-    #
-    #         for i in range(initial):
-    #             little_star_y = int(i * SConfig.small_scale * SConfig.weakness_row_padding + i * SConfig.small_scale * SConfig.weakness_column_width)
-    #             alphaPaster(image, little_star_faded if not is_faded else little_star, (little_image_left_pos, little_star_y))
-    #
-    #         for i in range(second + 1 if second == 0 else second):
-    #             if second == 0:
-    #                 if Card.drawCrossAtBottom:
-    #                     alphaPaster(image, little_cross_faded if not is_faded else little_cross, (little_image_left_pos, image.size[1] - new_size[1]))
-    #                 else:
-    #                     last_y = int((initial if initial > 0 else 1) * new_size[1] + (initial if initial > 0 else 1) * SConfig.small_scale * SConfig.weakness_row_padding)
-    #                     alphaPaster(image, little_cross_faded if not is_faded else little_cross, (little_image_left_pos, last_y))
-    #
-    #         for k in range(second):
-    #             last_y = int((initial if initial > 0 else 1) * new_size[1] + (initial if initial > 0 else 1) * SConfig.small_scale * SConfig.weakness_row_padding)
-    #             little_star_y = int(k * SConfig.small_scale * SConfig.weakness_row_padding + k * SConfig.small_scale * SConfig.weakness_column_width + last_y)
-    #             alphaPaster(image, little_star_faded if not is_faded else little_star, (little_image_left_pos, little_star_y))
-    #
-    #         alphaPaster(image, self.drawBrackets(1 if second == 0 else second, is_faded, SConfig.weakness_column_width, SConfig.weakness_row_padding * SConfig.small_scale), (0, last_y))
-    #
-    #     return image
-
     @staticmethod
     def getAilmentsImage(poison, sleep, paralysis, blast, stun) -> Image.Image:
         image = Image.new("RGBA", (SConfig.weakness_column_width, SConfig.weakness_column_width * 3 + SConfig.weakness_row_padding * 2))
@@ -238,7 +142,6 @@ class Card:
         little_blast = Images.image_ail_blast.resize(new_size)
         little_stun =Images.image_ail_stun.resize(new_size)
 
-        # new_size = (int(Card.weakness_column_width * Card.small_scale), int(Card.weakness_column_width * Card.small_scale))
         little_faded_poison = Images.image_ail_poison_faded.resize(new_size)
         little_faded_sleep = Images.image_ail_sleep_faded.resize(new_size)
         little_faded_paralysis = Images.image_ail_paralysis_faded.resize(new_size)

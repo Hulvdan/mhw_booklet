@@ -8,7 +8,7 @@ class Booklet:
     card_size = (345, 212)
     filling_color = Colors.white
 
-    def __init__(self, data_filename, grid_x, grid_y, filling_mode):
+    def __init__(self, data_filename, grid_x, grid_y, filling_mode, draw_numbers=False):
         self._data_filename = data_filename
 
         self._grid_x = grid_x
@@ -23,7 +23,7 @@ class Booklet:
 
         self._cards = []
         for i in library:
-            card = Card(i, Booklet.card_size[0], Booklet.card_size[1])
+            card = Card(i, Booklet.card_size[0], Booklet.card_size[1], draw_numbers)
             self._cards.append(card)
 
     def exportIntoFileAsPNG(self, export_filename):

@@ -7,6 +7,11 @@ class Colors:
     transparent = (0,0,0,0)
     black = (0,0,0,255)
     white = (255,255,255,255)
+    font_poison = "#81007F"
+    font_sleep = "#05006C"
+    font_paralysis = "#666500"
+    font_blast = "#431900"
+    font_stun = "#666500"
 
 class Images:
     s = None

@@ -1,6 +1,6 @@
 
 
-# Static Config. Yes, I know that it's stupid
+# StaticConfig. Yes, it's stupid
 class SConfig:
     """Storage of values that affect on Image render: spacings, sizes, positions, etc."""
     cards_vertical_padding = 20
@@ -21,3 +21,5 @@ class SConfig:
     braces_color = (100,100,100,255)
     braces_color_faded = (200,200,200,255)
     drawCrossAtBottom = False
+    zero_ailment_space = True
+    debug_polygon = False
