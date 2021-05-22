@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import ClassVar, Tuple
 
 from PIL import Image, ImageDraw, ImageFont  # noqa: WPS102
 
@@ -12,11 +12,11 @@ from .images import Images
 
 
 class AilmentType:
-    poison = 0
-    sleep = 1
-    paralysis = 2
-    blast = 3
-    stun = 4
+    poison: ClassVar[int] = 0
+    sleep: ClassVar[int] = 1
+    paralysis: ClassVar[int] = 2
+    blast: ClassVar[int] = 3
+    stun: ClassVar[int] = 4
 
 
 class AilmentStack:
@@ -121,11 +121,11 @@ class AilmentStack:
         return image
 
     @property
-    def width(self):
+    def width(self) -> int:
         return WEAKNESS_COLUMN_WIDTH
 
     @property
-    def height(self):
+    def height(self) -> int:
         icons_sum = WEAKNESS_COLUMN_WIDTH * 4
         paddings_sum = WEAKNESS_ROW_PADDING * 3
-        return int(icons_sum + paddings_sum)
+        return icons_sum + paddings_sum

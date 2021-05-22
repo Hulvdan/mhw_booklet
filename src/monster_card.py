@@ -1,5 +1,6 @@
 import os
-from typing import List, Optional, Tuple, Union
+from pathlib import Path
+from typing import List, Optional, Tuple
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
@@ -14,15 +15,14 @@ from .config import (
 from .element_weakness_stack import ElementType, ElementWeaknessStack
 from .helper import alpha_paster
 from .images import Images
-
-ElementWeakness = Union[Tuple[int, int], int]
+from .types import ElementWeakness, MonsterData
 
 
 class MonsterCard:
     """Monster's card with icon, name, attack types and weaknesses."""
 
     def __init__(self,
-                 library: dict,
+                 library: MonsterData,
                  width: int,
                  height: int):
         """Initialization.
@@ -33,7 +33,7 @@ class MonsterCard:
             height: Card's height.
         """
         self._library = library
-        self._name = self._library['name']
+        self.name = self._library['name']
         self._color = self._get_name_color()
 
         self._attack_types = self._library['attack']
@@ -114,17 +114,17 @@ class MonsterCard:
         self._size = (width, height)
 
         extensions = ['png', 'webp', 'jpg']
-        icon_image_path: Optional[str] = None
+        icon_image_path: Optional[Path] = None
         for extension in extensions:
-            path = MONSTER_ICONS_FOLDER / f'{self._name}.{extension}'
+            path = MONSTER_ICONS_FOLDER / f'{self.name}.{extension}'
             if os.path.exists(path):
                 icon_image_path = path
                 break
             logger.debug('No such file "%s", checking other extensions' % path)
 
         if icon_image_path is None:
-            logger.error('Did not find image for "%s"' % self._name)
-            raise ValueError('Did not find image for "%s"' % self._name)
+            logger.error('Did not find image for "%s"' % self.name)
+            raise ValueError('Did not find image for "%s"' % self.name)
 
         logger.debug('Loading image "%s"' % icon_image_path)
         monster_image: Image.Image = Image.open(icon_image_path)
@@ -137,12 +137,12 @@ class MonsterCard:
         self._icon_image.thumbnail(
             (MONSTER_ICON_SIZE, MONSTER_ICON_SIZE * 2), Image.ANTIALIAS)
 
-        logger.debug('Created monster card of "%s"' % self._name)
+        logger.debug('Created monster card of "%s"' % self.name)
 
     def __str__(self):
         """String representation of monster's card."""
         return '{}\t[{}{}{}{}{}]\t[{}{}{}{}{}]'.format(
-            self._name, *self._library['weakness'], *self._library['ailments'])
+            self.name, *self._library['weakness'], *self._library['ailments'])
 
     def get_card_image(self) -> Image.Image:
         """Monster's card with icon, name, attack types and weaknesses.
@@ -183,10 +183,10 @@ class MonsterCard:
             x_left -= WEAKNESS_COLUMN_PADDING
 
         # Drawing monster's name
-        text_size = drawer.textsize(self._name, font=monster_name_font)
+        text_size = drawer.textsize(self.name, font=monster_name_font)
         drawer.text(
             ((self._width - text_size[0]) / 2, 0),
-            self._name,
+            self.name,
             font=monster_name_font,
             fill=self._color)
 
@@ -195,7 +195,7 @@ class MonsterCard:
                    ATTACK_ICONS_SPACING_FROM_ICON)
         alpha_paster(image, self._get_monster_attack_image(), (0, image_y))
 
-        logger.info('Created image-card of "%s"' % self._name)
+        logger.debug('Created image-card of "%s"' % self.name)
         return image
 
     @ classmethod
@@ -217,7 +217,7 @@ class MonsterCard:
             return elem_res[0]
         return elem_res
 
-    @ classmethod
+    @classmethod
     def _secondary_elem_res(cls, elem_res: ElementWeakness) -> Optional[int]:
         """Get monster's secondary element weakness.
 
@@ -236,7 +236,7 @@ class MonsterCard:
             return elem_res[1]
         return None
 
-    @ classmethod
+    @classmethod
     def _get_image_by_attack_type(cls, attack_type: str) -> Image.Image:
         """Get image of monster's attack type.
 
@@ -303,12 +303,16 @@ class MonsterCard:
             img = images_instance.blastscourge.resize(size)
         elif attack_type == 'defense_down':
             img = images_instance.defense_down.resize(size)
+        elif attack_type == 'paralysis':
+            img = images_instance.ail_paralysis.resize(size)
+        elif attack_type == 'blastblight':
+            img = images_instance.blastblight.resize(size)
 
         if img is None:
             raise ValueError(f'Wrong attack_type "{attack_type}"')
         return img
 
-    @ classmethod
+    @classmethod
     def _draw_brackets(cls, icon_size: int, margin=True) -> Image.Image:
         """Brackets for some of monster's attack types.
 
@@ -361,7 +365,7 @@ class MonsterCard:
 
     def _get_name_color(self) -> str:
         if self._library['color'] == '#':
-            logger.warning(f'Monster "{self._name}" has undefined name color')
+            logger.warning(f'Monster "{self.name}" has undefined name color')
             return BLACK
         return self._library['color']
 

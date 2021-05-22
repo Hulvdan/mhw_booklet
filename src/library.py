@@ -4,15 +4,7 @@ from typing import List, Tuple, TypedDict
 import commentjson
 
 from .config import LIBRARY_DATA_PATH, logger
-from .monster_card import ElementWeakness
-
-
-class MonsterData(TypedDict):
-    name: str
-    attack: str
-    weakness: Tuple[ElementWeakness]
-    ailments: Tuple[int, int, int, int, int]
-    color: str
+from .types import MonsterData
 
 
 class Library:

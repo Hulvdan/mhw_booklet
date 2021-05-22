@@ -69,6 +69,7 @@ class Images:  # noqa: WPS230
         self.noxious_poison = load_image(ELEMENTS_FOLDER / 'noxious_poison.png')
         self.blastscourge = load_image(ELEMENTS_FOLDER / 'blastscourge.png')
         self.defense_down = load_image(ELEMENTS_FOLDER / 'defense_down.png')
+        self.blastblight = load_image(ELEMENTS_FOLDER / 'blastblight.webp')
 
         self.ail_poison = load_image(ELEMENTS_FOLDER / 'poison.png')
         self.ail_sleep = load_image(ELEMENTS_FOLDER / 'sleep.png')
@@ -82,6 +83,7 @@ class Images:  # noqa: WPS230
             ELEMENTS_FOLDER / 'paralysis_faded.png')
         self.ail_blast_faded = load_image(ELEMENTS_FOLDER / 'blast_faded.png')
         self.ail_stun_faded = load_image(ELEMENTS_FOLDER / 'stun_faded.png')
+
 
         self.ail_bleeding = load_image(ELEMENTS_FOLDER / 'bleeding.png')
         self.ail_effluvial = load_image(ELEMENTS_FOLDER / 'effluvial.png')

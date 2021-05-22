@@ -2,10 +2,14 @@ import os
 from typing import List
 
 from PIL import Image
+from progress.bar import IncrementalBar
+from src import library
+from src.images import Images
 
 from . import colors
 from .config import (
-    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER, logger)
+    BAR_MESSAGE_LENGTH, CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING,
+    DIST_FOLDER, logger)
 from .helper import alpha_paster
 from .library import Library
 from .monster_card import MonsterCard
@@ -32,13 +36,21 @@ class Booklet:
         self._filling_mode = filling_mode
 
         logger.info('Creating monster cards...')
+
+        monsters_library = Library.get_instance()
+        if columns * rows < len(monsters_library):
+            logger.warning(
+                "We won't be able to place all monsters on the page.\n"
+                'There are %d monsters and only %d cells'
+                % (len(monsters_library), columns * rows))
+
         self._cards: List[MonsterCard] = []
-        for lib in Library.get_instance():
+        for monster_data in monsters_library:
             card = MonsterCard(
-                lib, __class__.card_size[0], __class__.card_size[1])
+                monster_data, __class__.card_size[0], __class__.card_size[1])
             self._cards.append(card)
 
-    def export_as_png(self, export_filename: str):
+    def export_as_png(self, export_filename: str) -> None:
         logger.info('Exporting booklet as png...')
         sheet_width = (__class__.card_size[0] * self._columns +
                        CARDS_HORIZONTAL_PADDING * (self._columns - 1))
@@ -47,6 +59,13 @@ class Booklet:
         sheet_size = (sheet_width, sheet_height)
         sheet = Image.new('RGBA', sheet_size, __class__.filling_color)
 
+        # Caching images...
+        Images.get_instance()
+
+        bar_message = 'Loading "{}"'
+        bar = IncrementalBar(
+            bar_message.format(self._cards[0].name).ljust(
+                BAR_MESSAGE_LENGTH, ' '), max=len(self._cards))
         for row_index in range(self._rows):
             for col_index in range(self._columns):
                 card_x = col_index * (__class__.card_size[0] +
@@ -60,8 +79,12 @@ class Booklet:
                     break
 
                 current_card = self._cards[card_index]
+                bar.message = bar_message.format(
+                    current_card.name).ljust(BAR_MESSAGE_LENGTH, ' ')
                 card_image = current_card.get_card_image()
                 alpha_paster(sheet, card_image, card_position)
+                bar.next(1)
+        bar.finish()
 
         if not os.path.exists(str(DIST_FOLDER)):
             os.mkdir(str(DIST_FOLDER))
@@ -73,5 +96,4 @@ class Booklet:
             return row_index * self._columns + col_index
         elif self._filling_mode == FillingMode.vertical:
             return col_index * self._rows + row_index
-        else:
-            ValueError(f'Wrong filling mode "{self._filling_mode}"!')
+        raise ValueError(f'Wrong filling mode "{self._filling_mode}"!')

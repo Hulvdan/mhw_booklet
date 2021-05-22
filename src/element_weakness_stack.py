@@ -60,7 +60,9 @@ class ElementWeaknessStack:
         return image
 
     @classmethod
-    def _get_element_image(cls, element_type: ElementType, faded: bool):
+    def _get_element_image(cls,
+                           element_type: ElementType,
+                           faded: bool) -> Image.Image:
         """Get image of the element."""
         images_instance = Images.get_instance()
 
@@ -242,12 +244,12 @@ class ElementWeaknessStack:
         return image
 
     @property
-    def width(self):
+    def width(self) -> int:
         """Width of weakness image."""
         return WEAKNESS_COLUMN_WIDTH
 
     @property
-    def height(self):
+    def height(self) -> int:
         """Height of weakness image. Includes element image."""
         icons_sum = WEAKNESS_COLUMN_WIDTH * 4
         paddings_sum = WEAKNESS_ROW_PADDING * 3

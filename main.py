@@ -3,7 +3,7 @@ from src.config import DIST_FOLDER
 
 
 def main():
-    booklet_landscape_horizontal = Booklet(6, 6, 0)
+    booklet_landscape_horizontal = Booklet(12, 6, 0)
     booklet_landscape_horizontal.export_as_png(
         DIST_FOLDER / 'MHW_Booklet_Landscape_Horizontal.png')
 
