@@ -1,4 +1,11 @@
+import logging
 from pathlib import Path
+
+import structlog
+
+LOG_LEVEL = logging.DEBUG
+logger: structlog.PrintLogger = structlog.get_logger()
+
 
 MONSTER_NAME_FONT_SIZE = 180
 AILMENT_FONT_SIZE = 84
@@ -8,6 +15,8 @@ ASSETS_FOLDER = Path('assets')
 FONT_FOLDER = ASSETS_FOLDER / 'fonts'
 IMAGES_FOLDER = ASSETS_FOLDER / 'images'
 ELEMENTS_FOLDER = IMAGES_FOLDER / 'elements'
+MONSTER_ICONS_FOLDER = IMAGES_FOLDER / 'monster_icons'
+LIBRARY_DATA_PATH = ASSETS_FOLDER / 'data.json'
 
 # Should the numbers be drawn to the right of ailments.
 DRAW_AILMENT_NUMBERS = True

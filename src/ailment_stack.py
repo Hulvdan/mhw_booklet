@@ -44,21 +44,21 @@ class AilmentStack:
 
         alpha_paster(
             image,
-            images_instance.image_ail_ailment(self._is_faded).resize(
+            images_instance.ail_ailment(self._is_faded).resize(
                 (self.width, self.width)))
         ailments_x = int(0 if DRAW_AILMENT_NUMBERS else (
             WEAKNESS_COLUMN_WIDTH - small_size[0]) / 2)
         last_y = WEAKNESS_ROW_PADDING + WEAKNESS_COLUMN_WIDTH
-        images_by_powers = (images_instance.image_ail_poison,
-                            images_instance.image_ail_sleep,
-                            images_instance.image_ail_paralysis,
-                            images_instance.image_ail_blast,
-                            images_instance.image_ail_stun)
-        images_by_powers_faded = (images_instance.image_ail_poison_faded,
-                                  images_instance.image_ail_sleep_faded,
-                                  images_instance.image_ail_paralysis_faded,
-                                  images_instance.image_ail_blast_faded,
-                                  images_instance.image_ail_stun_faded)
+        images_by_powers = (images_instance.ail_poison,
+                            images_instance.ail_sleep,
+                            images_instance.ail_paralysis,
+                            images_instance.ail_blast,
+                            images_instance.ail_stun)
+        images_by_powers_faded = (images_instance.ail_poison_faded,
+                                  images_instance.ail_sleep_faded,
+                                  images_instance.ail_paralysis_faded,
+                                  images_instance.ail_blast_faded,
+                                  images_instance.ail_stun_faded)
         colors_by_powers = (colors.FONT_POISON,
                             colors.FONT_SLEEP,
                             colors.FONT_PARALYSIS,
@@ -82,14 +82,14 @@ class AilmentStack:
                     alpha_paster(image, images_by_powers[i].resize(
                         small_size), (ailments_x, int(last_y)))
                 else:
-                    alpha_paster(image, Images.image_back_small_faded,
+                    alpha_paster(image, Images.back_small_faded,
                                  (ailments_x, int(last_y)))
                     alpha_paster(image, images_by_powers_faded[i].resize(
                         small_size), (ailments_x, int(last_y)))
 
             elif self._powers[i] == 3:
                 if not DRAW_AILMENT_NUMBERS:
-                    alpha_paster(image, Images.image_back_small,
+                    alpha_paster(image, Images.back_small,
                                  (ailments_x, int(last_y)))
                 alpha_paster(image, images_by_powers[i].resize(
                     small_size), (ailments_x, int(last_y)))

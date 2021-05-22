@@ -9,7 +9,7 @@ from .config import (
     WEAKNESS_COLUMN_WIDTH_SMALL, WEAKNESS_ROW_PADDING,
     WEAKNESS_ROW_PADDING_SMALL)
 from .helper import alpha_paster
-from .images import Images, small_image
+from .images import Images, small_image_of_element_weakness
 
 
 class ElementType:
@@ -65,28 +65,28 @@ class ElementWeaknessStack:
 
         if element_type == ElementType.fire:
             if faded:
-                return images_instance.image_elem_fire_faded
-            return images_instance.image_elem_fire
+                return images_instance.elem_fire_faded
+            return images_instance.elem_fire
 
         elif element_type == ElementType.water:
             if faded:
-                return images_instance.image_elem_water_faded
-            return images_instance.image_elem_water
+                return images_instance.elem_water_faded
+            return images_instance.elem_water
 
         elif element_type == ElementType.thunder:
             if faded:
-                return images_instance.image_elem_thunder_faded
-            return images_instance.image_elem_thunder
+                return images_instance.elem_thunder_faded
+            return images_instance.elem_thunder
 
         elif element_type == ElementType.ice:
             if faded:
-                return images_instance.image_elem_ice_faded
-            return images_instance.image_elem_ice
+                return images_instance.elem_ice_faded
+            return images_instance.elem_ice
 
         elif element_type == ElementType.dragon:
             if faded:
-                return images_instance.image_elem_dragon_faded
-            return images_instance.image_elem_dragon
+                return images_instance.elem_dragon_faded
+            return images_instance.elem_dragon
 
         raise ValueError(f'Wrong ElementType "{element_type}"!')
 
@@ -108,21 +108,21 @@ class ElementWeaknessStack:
 
         if self._power_secondary is None:
             if self._power == 0:
-                img_cross = images_instance.image_cross(self._is_faded)
+                img_cross = images_instance.cross(self._is_faded)
                 alpha_paster(placeholder_img, img_cross, (0, 0))
 
             for row in range(self._power):
                 star_y = (WEAKNESS_COLUMN_WIDTH * row +
                           WEAKNESS_ROW_PADDING * row)
-                img_star = images_instance.image_star(self._is_faded)
+                img_star = images_instance.star(self._is_faded)
                 alpha_paster(placeholder_img, img_star, (0, star_y))
         else:
             new_size = (WEAKNESS_COLUMN_WIDTH_SMALL,
                         WEAKNESS_COLUMN_WIDTH_SMALL)
-            little_star = small_image(
-                images_instance.image_star(self._is_faded))
-            little_cross = small_image(
-                images_instance.image_cross(self._is_faded))
+            little_star = small_image_of_element_weakness(
+                images_instance.star(self._is_faded))
+            little_cross = small_image_of_element_weakness(
+                images_instance.cross(self._is_faded))
             little_image_left_pos = (
                 WEAKNESS_COLUMN_WIDTH - new_size[0]) // 2
 

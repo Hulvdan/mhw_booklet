@@ -1,12 +1,13 @@
-import json
 import os
 from typing import List
 
+import commentjson
 from PIL import Image
 
 from . import colors
 from .config import (
-    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER)
+    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER,
+    LIBRARY_DATA_PATH, logger)
 from .helper import alpha_paster
 from .monster_card import MonsterCard
 
@@ -23,19 +24,17 @@ class Booklet:
     filling_color = colors.WHITE
 
     def __init__(self,
-                 data_filename: str,
                  columns: int,
                  rows: int,
                  filling_mode: FillingMode):
-        self._data_filename = data_filename
-
         self._columns = columns
         self._rows = rows
 
         self._filling_mode = filling_mode
 
-        with open(self._data_filename) as data_file:
-            library = json.load(data_file)
+        logger.info('Loading library "%s"' % LIBRARY_DATA_PATH)
+        with open(str(LIBRARY_DATA_PATH)) as data_file:
+            library = commentjson.load(data_file)
 
         self._cards: List[MonsterCard] = []
         for lib in library:

@@ -3,12 +3,13 @@ from typing import List, Optional, Tuple, Union
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
 from .ailment_stack import AilmentStack
-from .colors import BRACES_COLOR
+from .colors import BLACK, BRACES_COLOR
 from .config import (
     ATTACK_ICON_WIDTH, ATTACK_ICONS_SPACING_FROM_ICON, ATTACK_SPACING,
-    DEBUG_POLYGON, FONT_FOLDER, ICON_BOTTOM_POS, IMAGES_FOLDER,
-    MONSTER_ICON_SIZE, MONSTER_IMAGE_ENHANCE_COEFFICIENT,
-    MONSTER_NAME_FONT_SIZE, SMALL_SCALE, WEAKNESS_COLUMN_PADDING, WEAKNESS_TOP)
+    DEBUG_POLYGON, FONT_FOLDER, ICON_BOTTOM_POS, MONSTER_ICON_SIZE,
+    MONSTER_ICONS_FOLDER, MONSTER_IMAGE_ENHANCE_COEFFICIENT,
+    MONSTER_NAME_FONT_SIZE, SMALL_SCALE, WEAKNESS_COLUMN_PADDING, WEAKNESS_TOP,
+    logger)
 from .element_weakness_stack import ElementType, ElementWeaknessStack
 from .helper import alpha_paster
 from .images import Images
@@ -111,12 +112,16 @@ class MonsterCard:
         self._height = height
         self._size = (width, height)
 
-        icon_image_path = IMAGES_FOLDER / f'{self._name}.png'
+        icon_image_path = MONSTER_ICONS_FOLDER / f'{self._name}.png'
+        monster_image: Image.Image = Image.open(str(icon_image_path))
+        if monster_image.mode != 'RGBA':
+            monster_image = monster_image.convert('RGBA')
         self._icon_image = ImageEnhance.Color(
-            Image.open(icon_image_path)).enhance(
-                MONSTER_IMAGE_ENHANCE_COEFFICIENT)
+            monster_image).enhance(MONSTER_IMAGE_ENHANCE_COEFFICIENT)
         self._icon_image.thumbnail(
             (MONSTER_ICON_SIZE, MONSTER_ICON_SIZE * 2), Image.ANTIALIAS)
+
+        logger.debug('Created monster card of "%s"' % self._name)
 
     def __str__(self):
         """String representation of monster's card."""
@@ -176,7 +181,7 @@ class MonsterCard:
 
         return image
 
-    @classmethod
+    @ classmethod
     def _primary_elem_res(cls, elem_res: ElementWeakness) -> int:
         """Get monster's primary element weakness.
 
@@ -195,7 +200,7 @@ class MonsterCard:
             return elem_res[0]
         return elem_res
 
-    @classmethod
+    @ classmethod
     def _secondary_elem_res(cls, elem_res: ElementWeakness) -> Optional[int]:
         """Get monster's secondary element weakness.
 
@@ -214,7 +219,7 @@ class MonsterCard:
             return elem_res[1]
         return None
 
-    @classmethod
+    @ classmethod
     def _get_image_by_attack_type(cls, attack_type: str) -> Image.Image:
         """Get image of monster's attack type.
 
@@ -234,51 +239,57 @@ class MonsterCard:
 
         img: Optional[Image.Image] = None
         if attack_type == 'waterblight':  # noqa: WPS223
-            img = images_instance.image_waterblight.resize(size)
+            img = images_instance.waterblight.resize(size)
         elif attack_type == 'mud_brackets':
             img_brackets = cls._draw_brackets(icon_size=width, margin=False)
-            res_mud = images_instance.image_mud.resize(size)
+            res_mud = images_instance.mud.resize(size)
             alpha_paster(res_mud, img_brackets, (0, 0))
             img = res_mud
         elif attack_type == 'poison':
-            img = images_instance.image_ail_poison.resize(size)
+            img = images_instance.ail_poison.resize(size)
         elif attack_type == 'water':
-            img = images_instance.image_elem_water.resize(size)
+            img = images_instance.elem_water.resize(size)
         elif attack_type == 'thunder':
-            img = images_instance.image_elem_thunder.resize(size)
+            img = images_instance.elem_thunder.resize(size)
         elif attack_type == 'thunderblight':
-            img = images_instance.image_thunderblight.resize(size)
+            img = images_instance.thunderblight.resize(size)
         elif attack_type == 'fire':
-            img = images_instance.image_elem_fire.resize(size)
+            img = images_instance.elem_fire.resize(size)
         elif attack_type == 'fireblight':
-            img = images_instance.image_fireblight.resize(size)
+            img = images_instance.fireblight.resize(size)
         elif attack_type == 'stun':
-            img = images_instance.image_ail_stun.resize(size)
+            img = images_instance.ail_stun.resize(size)
         elif attack_type == 'ice':
-            img = images_instance.image_elem_ice.resize(size)
+            img = images_instance.elem_ice.resize(size)
         elif attack_type == 'iceblight':
-            img = images_instance.image_iceblight.resize(size)
+            img = images_instance.iceblight.resize(size)
         elif attack_type == 'bleed':
-            img = images_instance.image_ail_bleed.resize(size)
+            img = images_instance.ail_bleed.resize(size)
         elif attack_type == 'blast':
-            img = images_instance.image_ail_blast.resize(size)
+            img = images_instance.ail_blast.resize(size)
         elif attack_type == 'diamond_brackets':
             img_brackets = cls._draw_brackets(icon_size=width, margin=False)
-            res_diamond = images_instance.image_diamond.resize(size)
+            res_diamond = images_instance.diamond.resize(size)
             alpha_paster(res_diamond, img_brackets, (0, 0))
             img = res_diamond
         elif attack_type == 'sleep':
-            img = images_instance.image_ail_sleep.resize(size)
+            img = images_instance.ail_sleep.resize(size)
         elif attack_type == 'dragon':
-            img = images_instance.image_elem_dragon.resize(size)
+            img = images_instance.elem_dragon.resize(size)
         elif attack_type == 'effluvial':
-            img = images_instance.image_ail_effluvial.resize(size)
+            img = images_instance.ail_effluvial.resize(size)
+        elif attack_type == 'noxious_poison':
+            img = images_instance.noxious_poison.resize(size)
+        elif attack_type == 'blastscourge':
+            img = images_instance.blastscourge.resize(size)
+        elif attack_type == 'defense_down':
+            img = images_instance.defense_down.resize(size)
 
         if img is None:
             raise ValueError(f'Wrong attack_type "{attack_type}"')
         return img
 
-    @classmethod
+    @ classmethod
     def _draw_brackets(cls, icon_size: int, margin=True) -> Image.Image:
         """Brackets for some of monster's attack types.
 
@@ -331,14 +342,14 @@ class MonsterCard:
 
     def _get_name_color(self) -> str:
         if self._library['color'] == '#':
-            raise ValueError(f'Monster "{self._name}" has undefined name color')
-            # return BLACK
+            logger.warning(f'Monster "{self._name}" has undefined name color')
+            return BLACK
         return self._library['color']
 
     def _get_monster_attack_image(self) -> Image.Image:
         """Image of monster's attack type's under monster's icon."""
         image = Image.new('RGBA', (int(MONSTER_ICON_SIZE),
-                          int(ATTACK_ICON_WIDTH)))
+                                   int(ATTACK_ICON_WIDTH)))
 
         spacing = ATTACK_SPACING
         width = ATTACK_ICON_WIDTH
