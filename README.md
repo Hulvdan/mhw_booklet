@@ -11,6 +11,16 @@ Based on **Tickthokk's** PDF version [[Reddit Post](https://www.reddit.com/r/Mon
 * **Landscape, Vertical Alignment** [[png](https://www.dropbox.com/s/2j58xthvf9z6s4z/MHW_Booklet_Landscape_Vertical.png?dl=0) | [word](https://www.dropbox.com/s/gmhncm6iah5izfe/MHW_Booklet_Landscape_Vertical.docx?dl=0)]
 * **Landscape, Horizontal Alignment** [[png](https://www.dropbox.com/s/iz7v5h937bvwlny/MHW_Booklet_Landscape_Horizontal.png?dl=0) | [word](https://www.dropbox.com/s/tkswmoama922t84/MHW_Booklet_Landscape_Horizontal.docx?dl=0)]
 
-# Python Environment
-* Python 3.6
-* Pillow 5.2.0
+# Dev Requirements
+- poetry
+- python 3.9 (recommended to use `pyenv` for using multiple python executables)
+
+## Install requirements
+```bash
+poetry install
+```
+
+## Run
+```bash
+python main.py
+```
