@@ -1,0 +1,618 @@
+[{
+    "name": "Great Jagras",
+    "attack": [],
+    "weakness": [3, 0, 2, 2, 1],
+    "ailments": [3, 3, 3, 3, 3],
+    "color": "#ACBD3B"
+  },
+
+  {
+    "name": "Kulu-Ya-Ku",
+    "attack": ["stun"],
+    "weakness": [2, 3, 2, 2, 2],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#D63232"
+  },
+
+  {
+    "name": "Pukei-Pukei",
+    "attack": ["poison"],
+    "weakness": [2, 0, 3, 2, 1],
+    "ailments": [1, 3, 3, 2, 2],
+    "color": "#32D632"
+  },
+
+  {
+    "name": "Barroth",
+    "attack": ["waterblight", "mud_brackets"],
+    "weakness": [
+      [3, 0],
+      [0, 3], 0, 2, 1
+    ],
+    "ailments": [3, 2, 3, 3, 1],
+    "color": "#82390D"
+  },
+
+  {
+    "name": "Jyuratodus",
+    "attack": ["water", "waterblight", "mud_brackets"],
+    "weakness": [
+      [1, 0],
+      [0, 3],
+      [3, 0], 2, 1
+    ],
+    "ailments": [2, 1, 2, 2, 3],
+    "color": "#89842D"
+  },
+
+  {
+    "name": "Tobi-Kadachi",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [2, 3, 0, 2, 1],
+    "ailments": [3, 2, 2, 2, 2],
+    "color": "#40BCF0"
+  },
+
+  {
+    "name": "Anjanath",
+    "attack": ["fire", "fireblight"],
+    "weakness": [0, 3, 2, 2, 1],
+    "ailments": [2, 2, 2, 1, 2],
+    "color": "#D51643"
+  },
+
+  {
+    "name": "Rathian",
+    "attack": ["fire", "fireblight", "poison"],
+    "weakness": [0, 1, 2, 1, 3],
+    "ailments": [1, 2, 2, 1, 3],
+    "color": "#5A9415"
+  },
+
+  {
+    "name": "Tzitzi-Ya-Ku",
+    "attack": ["stun"],
+    "weakness": [2, 2, 3, 3, 2],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#3D1DC6"
+  },
+
+  {
+    "name": "Paolumu",
+    "attack": [],
+    "weakness": [3, 0, 2, 1, 1],
+    "ailments": [2, 2, 2, 3, 3],
+    "color": "#F3C4C4"
+  },
+
+  {
+    "name": "Great Girros",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [2, 3, 0, 2, 1],
+    "ailments": [2, 3, 1, 2, 2],
+    "color": "#401307"
+  },
+
+  {
+    "name": "Radobaan",
+    "attack": [],
+    "weakness": [1, 1, 1, 2, 3],
+    "ailments": [2, 1, 2, 3, 2],
+    "color": "#1E9458"
+  },
+
+  {
+    "name": "Legiana",
+    "attack": ["ice", "iceblight"],
+    "weakness": [2, 1, 3, 0, 1],
+    "ailments": [3, 2, 2, 2, 2],
+    "color": "#5987FC"
+  },
+
+  {
+    "name": "Odogaron",
+    "attack": ["bleeding"],
+    "weakness": [1, 1, 2, 3, 0],
+    "ailments": [1, 2, 3, 2, 2],
+    "color": "#B01D1D"
+  },
+
+  {
+    "name": "Rathalos",
+    "attack": ["fire", "fireblight", "poison", "stun"],
+    "weakness": [0, 1, 2, 1, 3],
+    "ailments": [1, 2, 2, 1, 2],
+    "color": "#FF0000"
+  },
+
+  {
+    "name": "Diablos",
+    "attack": ["stun"],
+    "weakness": [0, 2, 1, 3, 2],
+    "ailments": [2, 2, 3, 2, 1],
+    "color": "#E6B51F"
+  },
+
+  {
+    "name": "Kirin",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [3, 2, 0, 2, 1],
+    "ailments": [1, 2, 0, 2, 1],
+    "color": "#3DB4FF"
+  },
+
+  {
+    "name": "Zorah Magdaros",
+    "attack": ["fire", "fireblight"],
+    "weakness": [0, 3, 1, 2, 3],
+    "ailments": [0, 0, 0, 0, 0],
+    "color": "#451F0B"
+  },
+
+  {
+    "name": "Dodogama",
+    "attack": ["fire", "blast"],
+    "weakness": [0, 2, 3, 2, 1],
+    "ailments": [3, 2, 2, 1, 2],
+    "color": "#2C8BDB"
+  },
+
+  {
+    "name": "Pink Rathian",
+    "attack": ["fire", "poison"],
+    "weakness": [0, 1, 2, 1, 3],
+    "ailments": [1, 2, 2, 1, 3],
+    "color": "#F92369"
+  },
+
+  {
+    "name": "Bazelgeuse",
+    "attack": ["fire", "fireblight"],
+    "weakness": [0, 1, 3, 2, 2],
+    "ailments": [2, 2, 2, 1, 1],
+    "color": "#B0998A"
+  },
+
+  {
+    "name": "Deviljho",
+    "attack": [],
+    "weakness": [2, 2, 3, 1, 3],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#3EA92C"
+  },
+
+  {
+    "name": "Lavasioth",
+    "attack": ["fire", "diamond_brackets"],
+    "weakness": [
+      [0, 1],
+      [3, 2],
+      [2, 0],
+      [2, 0], 1
+    ],
+    "ailments": [3, 1, 2, 1, 2],
+    "color": "#DC4A23"
+  },
+
+  {
+    "name": "Uragaan",
+    "attack": ["fire", "fireblight", "sleep"],
+    "weakness": [0, 3, 1, 2, 2],
+    "ailments": [3, 1, 2, 2, 3],
+    "color": "#4E1F12"
+  },
+
+  {
+    "name": "Azure Rathalos",
+    "attack": ["fire", "fireblight"],
+    "weakness": [0, 1, 1, 2, 3],
+    "ailments": [1, 2, 2, 1, 2],
+    "color": "#1A00BA"
+  },
+
+  {
+    "name": "Black Diablos",
+    "attack": [],
+    "weakness": [0, 2, 1, 3, 0],
+    "ailments": [2, 2, 3, 2, 1],
+    "color": "#311801"
+  },
+
+  {
+    "name": "Nergigante",
+    "attack": [],
+    "weakness": [1, 1, 3, 1, 2],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#3D2611"
+  },
+
+  {
+    "name": "Teostra",
+    "attack": ["fire", "dragon"],
+    "weakness": [0, 3, 1, 3, 1],
+    "ailments": [2, 1, 1, 1, 2],
+    "color": "#A85A14"
+  },
+
+  {
+    "name": "Lunastra",
+    "attack": [],
+    "weakness": [0, 1, 1, 3, 2],
+    "ailments": [1, 1, 1, 2, 2],
+    "color": "#2460E9"
+  },
+
+  {
+    "name": "Kushala-Daora",
+    "attack": [],
+    "weakness": [1, 0, 3, 0, 2],
+    "ailments": [3, 1, 1, 3, 2],
+    "color": "#353536"
+  },
+
+  {
+    "name": "Vaal-Hazak",
+    "attack": ["effluvial"],
+    "weakness": [3, 0, 1, 2, 3],
+    "ailments": [1, 1, 1, 2, 2],
+    "color": "#131313"
+  },
+
+  {
+    "name": "Xeno'jiiva",
+    "attack": ["dragon"],
+    "weakness": [2, 2, 2, 2, 2],
+    "ailments": [3, 0, 1, 2, 1],
+    "color": "#4B7EF2"
+  },
+
+  {
+    "name": "Kulve Taroth",
+    "attack": ["fire", "fireblight"],
+    "weakness": [
+      [0, 1], 2, [0, 3],
+      [3, 0],
+      [2, 1]
+    ],
+    "ailments": [1, 1, 1, 1, 1],
+    "color": "#D88D34"
+  },
+
+  {
+    "name": "Behemoth",
+    "attack": ["fire", "thunder", "bleeding", "fireblight", "thunderblight"],
+    "weakness": [1, 2, 1, 2, 3],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#53005F"
+  },
+
+  {
+    "name": "Alatreon",
+    "attack": [
+      "fire",
+      "water",
+      "thunder",
+      "ice",
+      "dragon",
+      "fireblight",
+      "waterblight",
+      "thunderblight",
+      "iceblight",
+      "dragonblight"
+    ],
+    "weakness": [
+      [0, 3],
+      [1, 2],
+      [1, 2],
+      [0, 3],
+      [1, 2]
+    ],
+    "ailments": [1, 1, 1, 1, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Acidic Glavenus",
+    "attack": ["defense_down"],
+    "weakness": [3, [2, 0], 2, 0, 0],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Barioth",
+    "attack": ["ice", "iceblight"],
+    "weakness": [3, 0, 2, 0, 1],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Banbaro",
+    "attack": ["iceblight", "fireblight", "waterblight"],
+    "weakness": [2, 0, 1, 0, 3],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Ancient Leshen",
+    "attack": ["bleeding"],
+    "weakness": [3, 0, 2, 1, 2],
+    "ailments": [2, 0, 1, 1, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Gold Rathian",
+    "attack": ["fire", "fireblight", "poison", "noxious_poison"],
+    "weakness": [0, 2, 3, 1, 0],
+    "ailments": [1, 2, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Glavenus",
+    "attack": ["fire", "fireblight"],
+    "weakness": [0, 3, 1, 2, 2],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Furious Rajang",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [0, 1, 0, 3, 0],
+    "ailments": [1, 1, 1, 2, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Fulgur Anjanath",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [2, [2, 3], 0, [3, 2], 1],
+    "ailments": [2, 2, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Frostfang Barioth",
+    "attack": ["ice", "iceblight"],
+    "weakness": [3, 0, 2, 0, 1],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Fatalis",
+    "attack": ["fire", "fireblight"],
+    "weakness": [2, 1, 1, 1, 3],
+    "ailments": [1, 1, 1, 1, 0],
+    "color": "#"
+  },
+
+  {
+    "name": "Ebony Odogaron",
+    "attack": ["dragon"],
+    "weakness": [2, 3, 2, 2, 1],
+    "ailments": [3, 2, 3, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Coral Pukei-Pukei",
+    "attack": ["water", "waterblight"],
+    "weakness": [1, 0, 2, 3, 1],
+    "ailments": [3, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Brute Tigrex",
+    "attack": ["fireblight", "waterblight", "effluvial"],
+    "weakness": [0, 3, 2, 1, 1],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Brachydios",
+    "attack": ["blastscourge"],
+    "weakness": [0, 2, 1, 3, 1],
+    "ailments": [2, 2, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Blackveil Vaal Hazak",
+    "attack": ["effluvial"],
+    "weakness": [2, 0, 1, 1, 2],
+    "ailments": [1, 1, 1, 2, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Beotodus",
+    "attack": ["ice", "iceblight"],
+    "weakness": [3, 1, 2, 0, 0],
+    "ailments": [2, 2, 2, 3, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Leshen",
+    "attack": ["bleeding"],
+    "weakness": [3, 0, 2, 0, 2],
+    "ailments": [3, 0, 2, 2, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Zinogre",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [1, 2, 0, 3, 1],
+    "ailments": [2, 2, 1, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Yian Garuga",
+    "attack": ["fire", "fireblight", "poison"],
+    "weakness": [0, 3, 0, 1, 2],
+    "ailments": [1, 1, 2, 3, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Viper Tobi-Kadachi",
+    "attack": ["poison", "noxious_poison", "paralysis"],
+    "weakness": [1, 0, 3, 2, 1],
+    "ailments": [1, 2, 1, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Velkhana",
+    "attack": ["ice", "iceblight"],
+    "weakness": [2, 1, 2, 0, 2],
+    "ailments": [2, 1, 1, 3, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Tigrex",
+    "attack": ["iceblight", "waterblight", "fireblight", "effluvial"],
+    "weakness": [0, 1, 3, 1, 2],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Stygian Zinogre",
+    "attack": ["dragon", "dragonblight"],
+    // TODO: Check it!
+    "weakness": [
+      [0, 1],
+      [0, 2],
+      [1, 3],
+      [0, 1], 0
+    ],
+    "ailments": [2, 2, 2, 3, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Silver Rathalos",
+    "attack": ["fire", "fireblight", "poison"],
+    "weakness": [0, 3, 2, 1, 0],
+    "ailments": [1, 2, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Shrieking Legiana",
+    "attack": ["ice", "iceblight"],
+    "weakness": [3, 1, 2, 0, 1],
+    "ailments": [3, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Shara Ishvalda",
+    "attack": ["stun"],
+    "weakness": [1, 2, 0, 3, 1],
+    // TODO: make support "ailments": [2,0,1,[2,3],1]
+    "ailments": [2, 0, 1, 2, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Seething Bazelgeuse",
+    "attack": ["fire", "fireblight", "blastblight"],
+    "weakness": [0, 1, 2, 3, 1],
+    "ailments": [2, 3, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Scarred Yian Garuga",
+    "attack": ["fire", "fireblight", "poison"],
+    "weakness": [0, 3, 0, 1, 2],
+    "ailments": [1, 1, 2, 3, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Savage Deviljho",
+    "attack": [
+      "dragon",
+      "dragonblight",
+      "defense_down",
+      "fireblight",
+      "iceblight",
+      "waterblight",
+      "effluvial"
+    ],
+    "weakness": [2, 2, 3, 1, 3],
+    "ailments": [3, 3, 3, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Safi'jiiva",
+    "attack": ["fire", "dragon", "fireblight"],
+    // TODO: Add weakness!
+    "weakness": [0, 0, 0, 0, 0],
+    "ailments": [3, 1, 2, 3, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Ruiner Nergigante",
+    "attack": ["bleeding"],
+    "weakness": [1, 1, 2, 1, 3],
+    "ailments": [2, 2, 2, 3, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Rajang",
+    "attack": ["thunder", "thunderblight"],
+    "weakness": [0, 1, 0, 3, 0],
+    "ailments": [1, 1, 1, 2, 1],
+    "color": "#"
+  },
+
+  {
+    "name": "Raging Brachydios",
+    "attack": ["blastscourge"],
+    // TODO: Check dragon!
+    "weakness": [0, 2, 1, 3, 0],
+    "ailments": [2, 2, 2, 1, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Nightshade Paolumu",
+    "attack": ["sleep"],
+    "weakness": [2, 3, 1, 1, 0],
+    "ailments": [2, 1, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Nargacuga",
+    "attack": ["bleeding"],
+    "weakness": [2, 0, 3, 1, 1],
+    "ailments": [2, 2, 2, 2, 2],
+    "color": "#"
+  },
+
+  {
+    "name": "Namielle",
+    "attack": ["water", "thunder", "waterblight", "thunderblight"],
+    "weakness": [3, 0, 0, 1, 2],
+    "ailments": [3, 1, 1, 3, 2],
+    "color": "#"
+  }
+]
