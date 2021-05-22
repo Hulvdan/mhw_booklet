@@ -1,29 +1,53 @@
-cards_vertical_padding = 60
-cards_horizontal_padding = 60
+from pathlib import Path
 
-icon_size = 360
-icon_weak_padding = 30
+MONSTER_NAME_FONT_SIZE = 180
+AILMENT_FONT_SIZE = 84
 
-weak_padding = 12
+DIST_FOLDER = Path('dist')
+ASSETS_FOLDER = Path('assets')
+FONT_FOLDER = ASSETS_FOLDER / 'fonts'
+IMAGES_FOLDER = ASSETS_FOLDER / 'images'
+ELEMENTS_FOLDER = IMAGES_FOLDER / 'elements'
 
-attack_icon_width = 84
-attack_spacing = 3
-attack_icons_spacing_from_icon = 15
+# Should the numbers be drawn to the right of ailments.
+DRAW_AILMENT_NUMBERS = True
 
-weakness_column_width = 102
-weakness_column_padding = 9
-weakness_row_padding = 15
-weakness_top = 180
+# Padding between cards
+CARDS_VERTICAL_PADDING = 60
+CARDS_HORIZONTAL_PADDING = 60
 
-icon_bottom_pos = 120
+MONSTER_ICON_SIZE = 360
 
-small_scale = 0.59
+ICON_WEAK_PADDING = 30
 
-braces_color = (100, 100, 100, 255)
-braces_color_faded = (200, 200, 200, 255)
+WEAK_PADDING = 12
 
-draw_cross_at_the_bottom = False
+ATTACK_ICON_WIDTH = 84
+ATTACK_SPACING = 3
+ATTACK_ICONS_SPACING_FROM_ICON = 15
 
-zero_ailment_space = True
+SMALL_SCALE = 0.59
 
-debug_polygon = False
+WEAKNESS_COLUMN_WIDTH = 102
+WEAKNESS_COLUMN_WIDTH_SMALL = int(WEAKNESS_COLUMN_WIDTH * SMALL_SCALE)
+WEAKNESS_COLUMN_PADDING = 9
+WEAKNESS_COLUMN_PADDING_SMALL = int(WEAKNESS_COLUMN_PADDING * SMALL_SCALE)
+WEAKNESS_ROW_PADDING = 15
+WEAKNESS_ROW_PADDING_SMALL = int(WEAKNESS_ROW_PADDING * SMALL_SCALE)
+WEAKNESS_TOP = 180
+
+ICON_BOTTOM_POS = 120
+
+# Coefficient that enhances monster's icon. Without it monster's icon will be
+# more dull.
+MONSTER_IMAGE_ENHANCE_COEFFICIENT = 1.5
+
+# When monster's weakness to the element type is "0", then cross will be drawn
+# on the bottom. If True - on the top.
+DRAW_CROSS_AT_THE_BOTTOM = False
+
+# Should be space drawn if ailment's power is 0.
+# True - blank. False - continue with the next ailment.
+ZERO_AILMENT_SPACE = True
+
+DEBUG_POLYGON = False

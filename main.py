@@ -1,36 +1,26 @@
-
-# Depends on Pillow 5.2.0
-from Booklet import *
+from src.booklet import Booklet
+from src.config import DIST_FOLDER
 
 
 def main():
-    Images.load()
-    data_filename = "data.json"
+    data_filename = 'data.json'
 
-    # booklet_lh = Booklet(data_filename, 6, 6, 0)
-    # booklet_lh.exportIntoFileAsPNG("MHW_Booklet_Landscape_Horizontal.png")
-    #
-    # booklet_lv = Booklet(data_filename, 6, 6, 1)
-    # booklet_lv.exportIntoFileAsPNG("MHW_Booklet_Landscape_Vertical.png")
-    #
-    # booklet_ph = Booklet(data_filename, 4, 9, 0)
-    # booklet_ph.exportIntoFileAsPNG("MHW_Booklet_Portrait_Horizontal.png")
-    #
-    # booklet_pv = Booklet(data_filename, 4, 9, 1)
-    # booklet_pv.exportIntoFileAsPNG("MHW_Booklet_Portrait_Vertical.png")
+    booklet_landscape_horizontal = Booklet(data_filename, 6, 6, 0)
+    booklet_landscape_horizontal.export_as_png(
+        DIST_FOLDER / 'MHW_Booklet_Landscape_Horizontal.png')
 
-    booklet_lh = Booklet(data_filename, 6, 6, 0, True)
-    booklet_lh.exportIntoFileAsPNG("MHW_Booklet_Landscape_Horizontal.png")
+    booklet_landscape_vertical = Booklet(data_filename, 6, 6, 1)
+    booklet_landscape_vertical.export_as_png(
+        DIST_FOLDER / 'MHW_Booklet_Landscape_Vertical.png')
 
-    booklet_lv = Booklet(data_filename, 6, 6, 1, True)
-    booklet_lv.exportIntoFileAsPNG("MHW_Booklet_Landscape_Vertical.png")
+    booklet_portrait_horizontal = Booklet(data_filename, 4, 9, 0)
+    booklet_portrait_horizontal.export_as_png(
+        DIST_FOLDER / 'MHW_Booklet_Portrait_Horizontal.png')
 
-    booklet_ph = Booklet(data_filename, 4, 9, 0, True)
-    booklet_ph.exportIntoFileAsPNG("MHW_Booklet_Portrait_Horizontal.png")
-
-    booklet_pv = Booklet(data_filename, 4, 9, 1, True)
-    booklet_pv.exportIntoFileAsPNG("MHW_Booklet_Portrait_Vertical.png")
+    booklet_portrait_vertical = Booklet(data_filename, 4, 9, 1)
+    booklet_portrait_vertical.export_as_png(
+        DIST_FOLDER / 'MHW_Booklet_Portrait_Vertical.png')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

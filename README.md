@@ -22,5 +22,7 @@ poetry install
 
 ## Run
 ```bash
+poetry shell
+
 python main.py
 ```
