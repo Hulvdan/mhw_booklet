@@ -65,7 +65,9 @@ class Booklet:
         bar_message = 'Loading "{}"'
         bar = IncrementalBar(
             bar_message.format(self._cards[0].name).ljust(
-                BAR_MESSAGE_LENGTH, ' '), max=len(self._cards))
+                BAR_MESSAGE_LENGTH, ' '),
+            max=len(self._cards),
+            suffix='%(index)d/%(max)d, elapsed: %(elapsed)d sec.')
         for row_index in range(self._rows):
             for col_index in range(self._columns):
                 card_x = col_index * (__class__.card_size[0] +
