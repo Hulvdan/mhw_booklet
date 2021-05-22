@@ -1,14 +1,13 @@
 import os
 from typing import List
 
-import commentjson
 from PIL import Image
 
 from . import colors
 from .config import (
-    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER,
-    LIBRARY_DATA_PATH, logger)
+    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER, logger)
 from .helper import alpha_paster
+from .library import Library
 from .monster_card import MonsterCard
 
 
@@ -32,19 +31,14 @@ class Booklet:
 
         self._filling_mode = filling_mode
 
-        logger.info('Loading library "%s"...' % LIBRARY_DATA_PATH)
-        with open(str(LIBRARY_DATA_PATH)) as data_file:
-            library = commentjson.load(data_file)
-
         logger.info('Creating monster cards...')
         self._cards: List[MonsterCard] = []
-        for lib in library:
-            card = MonsterCard(lib,
-                               __class__.card_size[0],
-                               __class__.card_size[1])
+        for lib in Library.get_instance():
+            card = MonsterCard(
+                lib, __class__.card_size[0], __class__.card_size[1])
             self._cards.append(card)
 
-    def export_as_png(self, export_filename):
+    def export_as_png(self, export_filename: str):
         logger.info('Exporting booklet as png...')
         sheet_width = (__class__.card_size[0] * self._columns +
                        CARDS_HORIZONTAL_PADDING * (self._columns - 1))
@@ -74,7 +68,7 @@ class Booklet:
         sheet.save(export_filename)
         logger.info('Exported booklet!')
 
-    def _card_index(self, col_index, row_index) -> int:
+    def _card_index(self, col_index: int, row_index: int) -> int:
         if self._filling_mode == FillingMode.horizontal:
             return row_index * self._columns + col_index
         elif self._filling_mode == FillingMode.vertical:
