@@ -5,7 +5,8 @@ from typing import List
 from PIL import Image
 
 from . import colors
-from .config import CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER
+from .config import (
+    CARDS_HORIZONTAL_PADDING, CARDS_VERTICAL_PADDING, DIST_FOLDER)
 from .helper import alpha_paster
 from .monster_card import MonsterCard
 
