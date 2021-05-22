@@ -3,7 +3,7 @@ from pathlib import Path
 
 import structlog
 
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 logger: structlog.PrintLogger = structlog.get_logger()
 
 

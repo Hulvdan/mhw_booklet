@@ -3,11 +3,10 @@ from typing import Optional
 from PIL import Image, ImageDraw
 
 from . import colors
-from .colors import BRACES_COLOR, BRACES_COLOR_FADED
 from .config import (
     DRAW_CROSS_AT_THE_BOTTOM, SMALL_SCALE, WEAKNESS_COLUMN_WIDTH,
     WEAKNESS_COLUMN_WIDTH_SMALL, WEAKNESS_ROW_PADDING,
-    WEAKNESS_ROW_PADDING_SMALL)
+    WEAKNESS_ROW_PADDING_SMALL, logger)
 from .helper import alpha_paster
 from .images import Images, small_image_of_element_weakness
 
@@ -56,6 +55,8 @@ class ElementWeaknessStack:
 
         pos = (0, WEAKNESS_COLUMN_WIDTH + WEAKNESS_ROW_PADDING)
         alpha_paster(image, self._get_power_value_image(), pos)
+
+        logger.debug('Created Element Weakness Stack image')
         return image
 
     @classmethod
@@ -230,7 +231,7 @@ class ElementWeaknessStack:
             p8 = (-offset + size[0] - 2 * line_width, icon_size *
                   images_count + top_padding * (images_count - 1) - 2)
 
-        clr = BRACES_COLOR_FADED if is_faded else BRACES_COLOR
+        clr = colors.BRACES_COLOR_FADED if is_faded else colors.BRACES_COLOR
         drawer.line((p1, p2), fill=clr, width=line_width)
         drawer.line((p2, p3), fill=clr, width=line_width)
         drawer.line((p3, p4), fill=clr, width=line_width)

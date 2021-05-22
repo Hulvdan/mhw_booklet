@@ -32,10 +32,11 @@ class Booklet:
 
         self._filling_mode = filling_mode
 
-        logger.info('Loading library "%s"' % LIBRARY_DATA_PATH)
+        logger.info('Loading library "%s"...' % LIBRARY_DATA_PATH)
         with open(str(LIBRARY_DATA_PATH)) as data_file:
             library = commentjson.load(data_file)
 
+        logger.info('Creating monster cards...')
         self._cards: List[MonsterCard] = []
         for lib in library:
             card = MonsterCard(lib,
@@ -44,6 +45,7 @@ class Booklet:
             self._cards.append(card)
 
     def export_as_png(self, export_filename):
+        logger.info('Exporting booklet as png...')
         sheet_width = (__class__.card_size[0] * self._columns +
                        CARDS_HORIZONTAL_PADDING * (self._columns - 1))
         sheet_height = (__class__.card_size[1] * self._rows +
@@ -70,6 +72,7 @@ class Booklet:
         if not os.path.exists(str(DIST_FOLDER)):
             os.mkdir(str(DIST_FOLDER))
         sheet.save(export_filename)
+        logger.info('Exported booklet!')
 
     def _card_index(self, col_index, row_index) -> int:
         if self._filling_mode == FillingMode.horizontal:

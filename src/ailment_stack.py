@@ -6,7 +6,7 @@ from . import colors
 from .config import (
     AILMENT_FONT_SIZE, DRAW_AILMENT_NUMBERS, FONT_FOLDER, WEAKNESS_COLUMN_WIDTH,
     WEAKNESS_COLUMN_WIDTH_SMALL, WEAKNESS_ROW_PADDING,
-    WEAKNESS_ROW_PADDING_SMALL, ZERO_AILMENT_SPACE)
+    WEAKNESS_ROW_PADDING_SMALL, ZERO_AILMENT_SPACE, logger)
 from .helper import alpha_paster
 from .images import Images
 
@@ -117,6 +117,7 @@ class AilmentStack:
                 last_y += (WEAKNESS_COLUMN_WIDTH_SMALL +
                            WEAKNESS_ROW_PADDING_SMALL)
 
+        logger.debug('Created Ailment Stack image')
         return image
 
     @property

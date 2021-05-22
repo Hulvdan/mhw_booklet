@@ -51,26 +51,22 @@ class Images:  # noqa: WPS230
         self.elem_ice = load_image(ELEMENTS_FOLDER / 'ice.png')
         self.elem_dragon = load_image(ELEMENTS_FOLDER / 'dragon.png')
 
-        self.elem_fire_faded = load_image(
-            ELEMENTS_FOLDER / 'fire_faded.png')
-        self.elem_water_faded = load_image(
-            ELEMENTS_FOLDER / 'water_faded.png')
+        self.elem_fire_faded = load_image(ELEMENTS_FOLDER / 'fire_faded.png')
+        self.elem_water_faded = load_image(ELEMENTS_FOLDER / 'water_faded.png')
         self.elem_thunder_faded = load_image(
             ELEMENTS_FOLDER / 'thunder_faded.png')
-        self.elem_ice_faded = load_image(
-            ELEMENTS_FOLDER / 'ice_faded.png')
+        self.elem_ice_faded = load_image(ELEMENTS_FOLDER / 'ice_faded.png')
         self.elem_dragon_faded = load_image(
             ELEMENTS_FOLDER / 'dragon_faded.png')
 
         self.fireblight = load_image(ELEMENTS_FOLDER / 'fireblight.png')
         self.waterblight = load_image(ELEMENTS_FOLDER / 'waterblight.png')
         self.iceblight = load_image(ELEMENTS_FOLDER / 'iceblight.png')
-        self.thunderblight = load_image(
-            ELEMENTS_FOLDER / 'thunderblight.png')
+        self.thunderblight = load_image(ELEMENTS_FOLDER / 'thunderblight.png')
+        self.dragonblight = load_image(ELEMENTS_FOLDER / 'dragonblight.webp')
         self.diamond = load_image(ELEMENTS_FOLDER / 'diamond.png')
         self.mud = load_image(ELEMENTS_FOLDER / 'mud.png')
-        self.noxious_poison = load_image(
-            ELEMENTS_FOLDER / 'image_noxious_poison.png')
+        self.noxious_poison = load_image(ELEMENTS_FOLDER / 'noxious_poison.png')
         self.blastscourge = load_image(ELEMENTS_FOLDER / 'blastscourge.png')
         self.defense_down = load_image(ELEMENTS_FOLDER / 'defense_down.png')
 
@@ -80,18 +76,14 @@ class Images:  # noqa: WPS230
         self.ail_blast = load_image(ELEMENTS_FOLDER / 'blast.png')
         self.ail_stun = load_image(ELEMENTS_FOLDER / 'stun.png')
 
-        self.ail_poison_faded = load_image(
-            ELEMENTS_FOLDER / 'poison_faded.png')
-        self.ail_sleep_faded = load_image(
-            ELEMENTS_FOLDER / 'sleep_faded.png')
+        self.ail_poison_faded = load_image(ELEMENTS_FOLDER / 'poison_faded.png')
+        self.ail_sleep_faded = load_image(ELEMENTS_FOLDER / 'sleep_faded.png')
         self.ail_paralysis_faded = load_image(
             ELEMENTS_FOLDER / 'paralysis_faded.png')
-        self.ail_blast_faded = load_image(
-            ELEMENTS_FOLDER / 'blast_faded.png')
-        self.ail_stun_faded = load_image(
-            ELEMENTS_FOLDER / 'stun_faded.png')
+        self.ail_blast_faded = load_image(ELEMENTS_FOLDER / 'blast_faded.png')
+        self.ail_stun_faded = load_image(ELEMENTS_FOLDER / 'stun_faded.png')
 
-        self.ail_bleed = load_image(ELEMENTS_FOLDER / 'bleed.png')
+        self.ail_bleeding = load_image(ELEMENTS_FOLDER / 'bleeding.png')
         self.ail_effluvial = load_image(ELEMENTS_FOLDER / 'effluvial.png')
 
         self._ail_ailment = load_image(ELEMENTS_FOLDER / 'ailment.png')
@@ -101,13 +93,11 @@ class Images:  # noqa: WPS230
         self._star = load_image(ELEMENTS_FOLDER / 'star.png')
         self._star_faded = load_image(ELEMENTS_FOLDER / 'star_faded.png')
         self._cross = load_image(ELEMENTS_FOLDER / 'cross.png')
-        self._cross_faded = load_image(
-            ELEMENTS_FOLDER / 'cross_faded.png')
+        self._cross_faded = load_image(ELEMENTS_FOLDER / 'cross_faded.png')
 
         small_size = (self.size[0] * self.small_scale,
                       self.size[1] * self.small_scale)
-        self.back_small = load_image(
-            ELEMENTS_FOLDER / 'back.png', small_size)
+        self.back_small = load_image(ELEMENTS_FOLDER / 'back.png', small_size)
         self.back_small_faded = load_image(
             ELEMENTS_FOLDER / 'back_faded.png', small_size)
         logger.debug('Images loaded!')

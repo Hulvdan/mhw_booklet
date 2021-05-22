@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional, Tuple, Union
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
@@ -112,9 +113,24 @@ class MonsterCard:
         self._height = height
         self._size = (width, height)
 
-        icon_image_path = MONSTER_ICONS_FOLDER / f'{self._name}.png'
-        monster_image: Image.Image = Image.open(str(icon_image_path))
+        extensions = ['png', 'webp', 'jpg']
+        icon_image_path: Optional[str] = None
+        for extension in extensions:
+            path = MONSTER_ICONS_FOLDER / f'{self._name}.{extension}'
+            if os.path.exists(path):
+                icon_image_path = path
+                break
+            logger.debug('No such file "%s", checking other extensions' % path)
+
+        if icon_image_path is None:
+            logger.error('Did not find image for "%s"' % self._name)
+            raise ValueError('Did not find image for "%s"' % self._name)
+
+        logger.debug('Loading image "%s"' % icon_image_path)
+        monster_image: Image.Image = Image.open(icon_image_path)
         if monster_image.mode != 'RGBA':
+            logger.debug('Converting image mode "%s" to "RGBA"' %
+                         icon_image_path)
             monster_image = monster_image.convert('RGBA')
         self._icon_image = ImageEnhance.Color(
             monster_image).enhance(MONSTER_IMAGE_ENHANCE_COEFFICIENT)
@@ -179,6 +195,7 @@ class MonsterCard:
                    ATTACK_ICONS_SPACING_FROM_ICON)
         alpha_paster(image, self._get_monster_attack_image(), (0, image_y))
 
+        logger.info('Created image-card of "%s"' % self._name)
         return image
 
     @ classmethod
@@ -240,6 +257,8 @@ class MonsterCard:
         img: Optional[Image.Image] = None
         if attack_type == 'waterblight':  # noqa: WPS223
             img = images_instance.waterblight.resize(size)
+        elif attack_type == 'dragonblight':  # noqa: WPS223
+            img = images_instance.dragonblight.resize(size)
         elif attack_type == 'mud_brackets':
             img_brackets = cls._draw_brackets(icon_size=width, margin=False)
             res_mud = images_instance.mud.resize(size)
@@ -263,8 +282,8 @@ class MonsterCard:
             img = images_instance.elem_ice.resize(size)
         elif attack_type == 'iceblight':
             img = images_instance.iceblight.resize(size)
-        elif attack_type == 'bleed':
-            img = images_instance.ail_bleed.resize(size)
+        elif attack_type == 'bleeding':
+            img = images_instance.ail_bleeding.resize(size)
         elif attack_type == 'blast':
             img = images_instance.ail_blast.resize(size)
         elif attack_type == 'diamond_brackets':
