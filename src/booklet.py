@@ -17,8 +17,8 @@ from .monster_card import MonsterCard
 
 
 class FillingMode:
-    horizontal = 0
-    vertical = 1
+    left_to_right = 0
+    top_to_bottom = 1
 
 
 class Booklet:
@@ -125,11 +125,11 @@ class Booklet:
                     col_index: int,
                     row_index: int,
                     sheet_index: int) -> int:
-        if self._filling_mode == FillingMode.horizontal:
+        if self._filling_mode == FillingMode.left_to_right:
             return (row_index * self._columns +
                     col_index +
                     self._count_monsters_in_sheet * sheet_index)
-        elif self._filling_mode == FillingMode.vertical:
+        elif self._filling_mode == FillingMode.top_to_bottom:
             return (col_index * self._rows +
                     row_index +
                     self._count_monsters_in_sheet * sheet_index)
