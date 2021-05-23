@@ -1,7 +1,11 @@
 import logging
 from pathlib import Path
 
+import poetry_version
 import structlog
+
+# This project's version
+PROJECT_VERSION = poetry_version.extract('pyproject.toml')
 
 LOG_LEVEL = logging.INFO
 logger: structlog.PrintLogger = structlog.get_logger()

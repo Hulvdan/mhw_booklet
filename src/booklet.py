@@ -64,9 +64,9 @@ class Booklet:
         sheet_size = (sheet_width, sheet_height)
 
         # Progress bar with len(monsters) + sheets_count steps
-        bar_message = 'Loading "{}"'
-        pogress_bar = IncrementalBar(
-            bar_message.format(self._cards[0].name).ljust(
+        progress_bar_message = 'Loading "{}"'
+        progress_bar = IncrementalBar(
+            progress_bar_message.format(self._cards[0].name).ljust(
                 BAR_MESSAGE_LENGTH, ' '),
             max=len(self._cards) + self._sheets_count,
             suffix='%(index)d/%(max)d, elapsed: %(elapsed)d sec.')
@@ -89,22 +89,22 @@ class Booklet:
                         break
 
                     current_card = self._cards[card_index]
-                    pogress_bar.message = bar_message.format(
+                    progress_bar.message = progress_bar_message.format(
                         current_card.name).ljust(BAR_MESSAGE_LENGTH, ' ')
                     card_image = current_card.get_card_image()
                     alpha_paster(sheet, card_image, card_position)
-                    pogress_bar.next(1)  # noqa: B305
+                    progress_bar.next(1)  # noqa: B305
 
             if not os.path.exists(str(DIST_FOLDER)):
                 os.mkdir(str(DIST_FOLDER))
 
             export_file_path = next(export_filename_generator)
-            pogress_bar.message = 'Exporting booklet to "{}"'.format(
+            progress_bar.message = 'Exporting booklet to "{}"'.format(
                 export_file_path)
-            pogress_bar.next(1)  # noqa: B305
+            progress_bar.next(1)  # noqa: B305
             sheet.save(export_file_path)
 
-        pogress_bar.finish()
+        progress_bar.finish()
         logger.info('Exported booklets!')
 
     def _gen_export_path(self, export_filename_wo_ext: str) -> str:
