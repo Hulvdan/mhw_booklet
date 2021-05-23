@@ -1,6 +1,7 @@
 .idea/
 .venv/
 .vscode/
+dist/
 **/__pycache__/
 MHW_Booklet_Landscape_Horizontal.png
 MHW_Booklet_Landscape_Vertical.png

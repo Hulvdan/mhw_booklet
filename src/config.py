@@ -6,6 +6,8 @@ import structlog
 LOG_LEVEL = logging.INFO
 logger: structlog.PrintLogger = structlog.get_logger()
 
+CLEAR_DIST_FOLDER_ON_START = True
+
 BAR_MESSAGE_LENGTH = 30
 
 MONSTER_NAME_FONT_SIZE = 160
